@@ -1,0 +1,22 @@
+name: Harvest Vocabulary
+on:
+  workflow_dispatch:
+    inputs:
+      collection:
+        description: 'Collection URI'
+        required: true
+        default: 'http://vocab.nerc.ac.uk/collection/P02/current/'
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: marine-term-translations/setup-harvest-action@v1
+        with:
+          collection-uri: ${{ github.event.inputs.collection }}
+      
+      - name: Upload database
+        uses: actions/upload-artifact@v3
+        with:
+          name: vocabulary-database
+          path: translations.db
