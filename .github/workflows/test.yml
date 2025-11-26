@@ -11,7 +11,7 @@ jobs:
   harvest:
     runs-on: ubuntu-latest
     steps:
-      - uses: marine-term-translations/setup-harvest-action@v1.2.3
+      - uses: marine-term-translations/setup-harvest-action@latest
         with:
           collection-uri: ${{ github.event.inputs.collection }}
       
@@ -21,4 +21,5 @@ jobs:
           name: vocabulary-database
 
           path: translations.db
+
 
