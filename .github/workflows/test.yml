@@ -22,4 +22,5 @@ jobs:
       - uses: marine-term-translations/setup-harvest-action@main
         with:
           collection-uri: ${{ inputs.collection-uri || 'http://vocab.nerc.ac.uk/collection/P02/current/' }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
