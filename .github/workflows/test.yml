@@ -1,39 +1,22 @@
-name: Harvest Vocabulary
+name: Harvest NERC P02
+
 on:
   workflow_dispatch:
     inputs:
-      collection:
-        description: 'Collection URI'
+      collection-uri:
+        description: 'NERC collection URI to harvest'
         required: true
         default: 'http://vocab.nerc.ac.uk/collection/P02/current/'
-
+        type: string
 jobs:
   harvest:
     runs-on: ubuntu-latest
     steps:
-      - uses: marine-term-translations/setup-harvest-action@v1.0.8
+      - uses: actions/checkout@v4
         with:
-          collection-uri: ${{ github.event.inputs.collection }}
+          token: ${{ secrets.GITHUB_TOKEN }}   # GitHub auto-provides this with write access
 
-      - name: Commit updated database
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add translations.db
-          git diff --staged --quiet || git commit -m "chore: update translations.db [ci skip]"
-          git push
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      - name: Harvest P02 + auto-save to this repo
+        uses: marine-term-translations/setup-harvest-action@main
+        with:
+          collection-uri: ${{ inputs.collection-uri || 'http://vocab.nerc.ac.uk/collection/P02/current/' }}
