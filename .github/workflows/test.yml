@@ -8,15 +8,18 @@ on:
         required: true
         default: 'http://vocab.nerc.ac.uk/collection/P02/current/'
         type: string
+
 jobs:
   harvest:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}   # GitHub auto-provides this with write access
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Harvest P02 + auto-save to this repo
-        uses: marine-term-translations/setup-harvest-action@main
+      - uses: marine-term-translations/setup-harvest-action@main
         with:
           collection-uri: ${{ inputs.collection-uri || 'http://vocab.nerc.ac.uk/collection/P02/current/' }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
