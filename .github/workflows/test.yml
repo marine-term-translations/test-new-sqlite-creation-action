@@ -1,4 +1,4 @@
-name: Harvest NERC P02
+name: Harvest NERC
 
 on:
   workflow_dispatch:
@@ -23,4 +23,5 @@ jobs:
         with:
           collection-uri: ${{ inputs.collection-uri || 'http://vocab.nerc.ac.uk/collection/P02/current/' }}
           token: ${{ secrets.GITHUB_TOKEN }}
+
 
